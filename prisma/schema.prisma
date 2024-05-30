@@ -1,0 +1,45 @@
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Define your generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Define your datasource for PostgreSQL
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cancha {
+  id          Int                 @id @default(autoincrement())
+  descripcion String
+  estado      String              @default("Activo")
+}
+
+model Deportista {
+  id             Int                 @id @default(autoincrement())
+  nombre         String
+  identificacion String
+  equipo         String
+  estado         String              @default("Activo")
+}
+
+model SeparacionCancha {
+  id              Int                 @id @default(autoincrement())
+  canchaId        Int
+  deportistaId    Int
+  fechaSeparacion DateTime
+  horaDesde       DateTime
+  horaHasta       DateTime
+  estado          String              @default("Activo")
+}
+
+model Auditoria {
+  id            Int        @id @default(autoincrement())
+  entidad       String
+  detalle       String
+  fecha         DateTime
+  id_auditado   Int
+  estado        String     @default("Activo")
+}
